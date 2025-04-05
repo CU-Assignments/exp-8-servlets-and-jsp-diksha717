@@ -1,0 +1,36 @@
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+
+@WebServlet("/login") // Maps the servlet to the URL "/login"
+public class LoginServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        // Retrieve form data from the POST request
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        // Set the response content type to HTML
+        response.setContentType("text/html");
+
+        // Get a PrintWriter to send HTML output back to the browser
+        PrintWriter out = response.getWriter();
+
+        // Simple check for valid credentials (hardcoded for demo)
+        if ("admin".equals(username) && "password123".equals(password)) {
+            // If credentials are correct, display a welcome message
+            out.println("<html><body>");
+            out.println("<h2>Welcome, " + username + "!</h2>");
+            out.println("</body></html>");
+        } else {
+            // If credentials are wrong, show error message
+            out.println("<html><body>");
+            out.println("<h2>Login Failed!</h2>");
+            out.println("<p>Invalid username or password.</p>");
+            out.println("</body></html>");
+        }
+    }
+}
